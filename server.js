@@ -9,7 +9,7 @@ const qs = require('qs');
 const OpenAI = require('openai');
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 // Configuration du timeout pour les requêtes
 const TIMEOUT = 30000; // 30 secondes

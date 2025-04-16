@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutilsIA - Chatbot d'Investigation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        .white-text {
+            color: white;
+        }
+        .arabic-text {
+            direction: rtl;
+            text-align: right;
+            font-family: Arial, sans-serif;
+        }
+        .arabic-title {
+            direction: rtl;
+            text-align: right;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .main-title {
+            direction: rtl;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="networkCanvas"></canvas>
+    <div class="container">
+        <div class="header-container">
+            <img src="images/logo-ministere.png" alt="Ministère de l'Intérieur" class="logo">
+            <h1 class="main-title">دليل المحقق في الجرائم المدعومة بالذكاء الاصطناعي</h1>
+            <img src="images/logo-ecole.png" alt="École Nationale de Formation des Cadres" class="logo">
+        </div>
+        
+        <div class="content">
+            <div class="right-section">
+                <h2 class="arabic-title">وسائل خاصة للذكاء الإصطناعي</h2>
+                <ul class="arabic-text">
+                    <li><a href="https://osintframework.com/" target="_blank" rel="noopener" class="white-text">البحث عبر المصادر المفتوحة</a></li>
+                    <li><a href="https://app.pixverse.ai/create" target="_blank" rel="noopener" class="white-text">تغيير محتوى صورة</a></li>
+                    <li><a href="https://fr.faceswapper.ai/" target="_blank" rel="noopener" class="white-text">استبدال صور الوجوه</a></li>
+                    <li><a href="https://www.deepswap.ai/fr/pricing?from=/create" target="_blank" rel="noopener" class="white-text">تغيير محتوى فيدو deep fake</a></li>
+                    <li><a href="https://www.veed.io" target="_blank" rel="noopener" class="white-text">تغيير صوت</a></li>
+                    <li><a href="https://elevenlabs.io/app/home" target="_blank" rel="noopener" class="white-text">دمج الأصوات</a></li>
+                </ul>
+            </div>
+
+            <div class="center-content">
+                <div class="investigator-image">
+                    <img src="images/investigator.png" alt="Investigateur professionnel" class="investigator">
+                </div>
+
+                <div class="qr-code">
+                    <div id="qrcode" class="qr-code-container"></div>
+                </div>
+            </div>
+
+            <div class="left-section">
+                <h2 class="arabic-title">معالجة الوثائق المشبوهة</h2>
+                <ul class="arabic-text">
+                    <li><a href="https://29a.ch/photo-forensics/" target="_blank" rel="noopener" class="white-text">التثبت من تزييف وثيقة</a></li>
+                    <li><a href="https://www.virustotal.com/gui/" target="_blank" rel="noopener" class="white-text">التثبت من تفخيخ وثيقة بفيروسات</a></li>
+                    <li><a href="https://scanner.deepware.ai/" target="_blank" rel="noopener" class="white-text">التثبت من تزييف فيديو</a></li>
+                    <li><a href="https://www.aiornot.com/dashboard/home" target="_blank" rel="noopener" class="white-text">التثبت من تزييف مقطع صوتي</a></li>
+                    <li><a href="https://hivemoderation.com/ai-generated-content-detection" target="_blank" rel="noopener" class="white-text">كشف الصور المولدة بالذكاء الاصطناعي</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="chatbot">
+        <div class="chatbot-header" onclick="toggleChat()">
+            <span class="arabic-text">زميلك الرقمي</span>
+            <button class="toggle-btn">▼</button>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    مرحبا ! أنا زميلك الرقمي ، كيف يمكنني مساعدتك؟
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Écrivez votre message ici...">
+                <button onclick="sendMessage()">Envoyer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Vérification de l'authentification
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <button onclick="logout()" style="position: fixed; top: 10px; right: 10px;">Déconnexion</button>
+
+    <script src="network.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="qr-generator.js"></script>
+</body>
+</html> 
