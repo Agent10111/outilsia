@@ -1,40 +1,70 @@
-# OutilsIA
+# Chatbot d'Investigation IA
 
-Guide de l'investigateur pour les crimes supportés par l'intelligence artificielle.
+Un chatbot spécialisé dans l'investigation des crimes assistés par l'IA, utilisant l'API OpenAI pour fournir des réponses précises et professionnelles en français.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Fonctionnalités
 
-## Getting Started
+- Interface utilisateur intuitive
+- Réponses en français
+- Intégration avec l'API OpenAI
+- Gestion des erreurs robuste
+- Support pour les requêtes asynchrones
 
-First, run the development server:
+## Configuration requise
 
+- Node.js
+- Clé API OpenAI
+
+## Installation
+
+1. Cloner le dépôt :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [URL_DU_REPO]
+cd [NOM_DU_REPO]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installer les dépendances :
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configurer les variables d'environnement :
+- Créer un fichier `.env` à la racine du projet
+- Ajouter votre clé API OpenAI :
+```
+API_HOST=http://localhost:3001
+PORT=3001
+OPENAI_API_KEY=votre_clé_api_ici
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Démarrer le serveur :
+```bash
+node server.js
+```
 
-## Learn More
+5. Accéder à l'application :
+- Ouvrir un navigateur
+- Aller à `http://localhost:3000`
 
-To learn more about Next.js, take a look at the following resources:
+## Structure du projet
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+├── public/
+│   ├── images/
+│   ├── chatbot.js
+│   ├── network.js
+│   ├── qr-generator.js
+│   ├── styles.css
+│   └── index.html
+├── server.js
+├── .env
+└── package.json
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contribution
 
-## Deploy on Vercel
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à soumettre une pull request.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licence
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ce projet est sous licence MIT.

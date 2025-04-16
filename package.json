@@ -1,17 +1,21 @@
 {
-  "name": "outilsia",
+  "name": "investigator-assistant",
   "version": "1.0.0",
+  "description": "Assistant numérique pour les enquêteurs",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "axios": "^1.8.4",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "express": "^4.21.2",
-    "openai": "^4.85.0"
+    "joi": "^17.13.3",
+    "node-fetch": "^2.6.7",
+    "openai": "^4.94.0",
+    "qs": "^6.14.0"
   },
-  "description": "Application web pour les outils d'investigation basés sur l'IA",
   "keywords": [
     "IA",
     "investigation",
