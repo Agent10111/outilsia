@@ -80,5 +80,5 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`🧠 Serveur IA en écoute sur http://localhost:${port}`);
+  console.log(`🧠 Serveur IA en écoute sur https://outilsia.vercel.app`);
 });

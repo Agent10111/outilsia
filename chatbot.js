@@ -1,8 +1,6 @@
 // Zameelak al-Raqmi - Chatbot sécurisé avec PDF, Speech-to-Text et mot de passe
 
-const welcomeMessage = `⚠️ تنبيه: هذا المساعد الذكي هو نموذج تجريبي. لا تدخل أي معلومات شخصية أو حساسة.
-يُستخدم هذا النظام لأغراض دراسية وتجريبية فقط.`;
-const API_BASE = 'http://localhost:4000'; // À remplacer par l'URL de production
+const API_BASE = 'https://outilsia.vercel.app'; // Mise à jour de l'adresse du backend pour pointer vers l'URL déployée
 
 function toggleChat() {
     const chatContainer = document.getElementById('chatContainer');
