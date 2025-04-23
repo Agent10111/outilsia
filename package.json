@@ -12,7 +12,9 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "next": "^15.3.1",
-    "openai": "^4.95.1"
+    "openai": "^4.95.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "description": "Application web pour les outils d'investigation basés sur l'IA",
   "keywords": [
