@@ -6,12 +6,6 @@
         "use": "@vercel/node"
       }
     ],
-    "routes": [
-      {
-        "src": "/api/chat",
-        "dest": "pages/api/chat.ts"
-      }
-    ],
     "cleanUrls": true
   }
   
