@@ -4,36 +4,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "next start",
-    "dev": "next dev",
-    "build": "next build",
-    "vercel-build": "next build"
+    "dev": "vercel dev"
   },
   "dependencies": {
-    "next": "^15.3.1",
-    "openai": "^4.95.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "openai": "^4.95.1"
   },
-  "description": "Application web pour les outils d'investigation basés sur l'IA",
-  "keywords": [
-    "IA",
-    "investigation",
-    "outils",
-    "deepfake"
-  ],
-  "author": "",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Agent10111/outilsia.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Agent10111/outilsia/issues"
-  },
-  "homepage": "https://github.com/Agent10111/outilsia#readme",
   "devDependencies": {
-    "@types/react": "^19.1.2",
     "typescript": "^5.8.3"
   }
 }
