@@ -65,11 +65,14 @@ app.post('/api/chat', async (req, res) => {
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'user', content: 'Bonjour' }
-      ]
+      messages: messages,
+      temperature: 0.3,
+      max_tokens: 800
     });
-    res.json(completion);
+
+    const reply = completion.choices?.[0]?.message?.content || '❌ Réponse vide d’OpenAI';
+    console.log("✅ Réponse renvoyée :", reply);
+    res.json({ message: reply });
   } catch (error) {
     console.error('Erreur API OpenAI :', error);
     res.status(500).json({ error: 'Erreur serveur' });

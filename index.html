@@ -9,6 +9,11 @@
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 </head>
 <body>
+    <!-- Ajout d'un avertissement en haut du body -->
+    <div style="background:#fef4f4; color:#b30000; padding:10px; text-align:center; font-weight:bold;">
+      ⚠️ هذا المساعد هو أداة تجريبية لأغراض دراسية فقط. لا تدخل معلومات حقيقية أو سرية.
+    </div>
+
     <canvas id="networkCanvas"></canvas>
     <div class="container">
         <div class="header-container">
@@ -94,76 +99,5 @@
     <script src="./network.js"></script>
     <script src="./chatbot.js"></script>
     <script src="./qr-generator.js"></script>
-
-    <script>
-        async function sendMessage() {
-            const userInput = document.getElementById('userInput');
-            const message = userInput.value.trim();
-
-            if (message === '') return;
-
-            // Afficher le message de l'utilisateur
-            appendMessage('user', message);
-            userInput.value = '';
-
-            try {
-                // Afficher l'indicateur de chargement
-                appendMessage('bot', '... جاري التحميل');
-
-                // Détecter la langue de la question
-                const isArabic = /[\u0600-\u06FF]/.test(message);
-                const languageHint = isArabic ? "أجب بالعربية" : "Réponds en français";
-
-                // Appel à l'API avec un prompt system
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        messages: [
-                            {
-                                role: 'system',
-                                content: `أنت "زميلك الرقمي"، مساعد ذكي متخصص في كشف التزييف العميق، وتحليل الصور والوثائق، ومكافحة المحتوى الاحتيالي. ${languageHint}`
-                            },
-                            {
-                                role: 'user',
-                                content: message
-                            }
-                        ]
-                    })
-                });
-
-                const data = await response.json();
-
-                // Supprimer le message de chargement
-                const loadingMessage = document.querySelector('.message.bot:last-child');
-                if (loadingMessage) {
-                    loadingMessage.remove();
-                }
-
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                // Afficher la réponse du chatbot
-                appendMessage('bot', data.message);
-
-            } catch (error) {
-                console.error('Erreur:', error);
-                appendMessage('bot', 'عذراً، حدث خطأ في المعالجة. يرجى المحاولة مرة أخرى.');
-            }
-        }
-
-        // Fonction pour ajouter un message à la conversation
-        function appendMessage(sender, message) {
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            messageDiv.textContent = message;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-    </script>
 </body>
 </html>

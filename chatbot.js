@@ -1,6 +1,7 @@
-// Zameelak al-Raqmi - Chatbot sécurisé avec avertissement et appel OpenAI
+// Zameelak al-Raqmi - Chatbot sécurisé avec PDF, Speech-to-Text et mot de passe
 
-const welcomeMessage = "مرحباً! أنا زميلك الرقمي، كيف يمكنني مساعدتك؟";
+const welcomeMessage = `⚠️ تنبيه: هذا المساعد الذكي هو نموذج تجريبي. لا تدخل أي معلومات شخصية أو حساسة.
+يُستخدم هذا النظام لأغراض دراسية وتجريبية فقط.`;
 const API_BASE = 'http://localhost:4000'; // À remplacer par l'URL de production
 
 function toggleChat() {
@@ -33,14 +34,10 @@ async function sendMessage() {
         });
 
         const data = await response.json();
-        console.log("🎯 Contenu JSON reçu du backend :", data);
         loading.remove();
 
         if (data.error) throw new Error(data.error);
 
-        console.log("🎯 Réponse reçue du serveur :", data);
-        console.log("📥 Message brut reçu du serveur :", data);
-        console.log("📥 Message à afficher :", data.message);
         appendMessage('bot', data.message || '🟥 Réponse vide.');
     } catch (error) {
         console.error('❌ Erreur OpenAI :', error);
@@ -56,12 +53,39 @@ function appendMessage(sender, message) {
     messageDiv.innerHTML = message;
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    console.log("💬 Message affiché :", message);
     return messageDiv;
 }
 
-// Initialisation du chat
+function exportChatToPDF() {
+    const chatMessages = document.getElementById('chatMessages').innerText;
+    const blob = new Blob([chatMessages], { type: 'application/pdf' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'chat_zameelak.pdf';
+    link.click();
+}
+
+function startVoiceInput() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'ar-SA';
+    recognition.start();
+    recognition.onresult = function (event) {
+        document.getElementById('userInput').value = event.results[0][0].transcript;
+        sendMessage();
+    };
+    recognition.onerror = function (event) {
+        console.error('🎤 Erreur Speech-to-Text:', event);
+    };
+}
+
+// Protection par mot de passe simple pour /chatbot
 window.addEventListener('DOMContentLoaded', function () {
+    const password = prompt("🔐 Entrez le mot de passe pour accéder au chatbot :");
+    if (password !== 'zamil2025') {
+        document.body.innerHTML = '<h2 style="color:red;text-align:center;margin-top:20%">🔒 Accès refusé. Mot de passe incorrect.</h2>';
+        return;
+    }
+
     const userInput = document.getElementById('userInput');
     const chatContainer = document.getElementById('chatContainer');
 
@@ -72,5 +96,17 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    document.getElementById('btnExportPDF').addEventListener('click', exportChatToPDF);
+    document.getElementById('btnVoice').addEventListener('click', startVoiceInput);
+
     chatContainer.style.display = 'block';
+    // Supprime l'appel avec welcomeMessage brut et garde uniquement l'appel avec HTML
+    appendMessage(
+        'bot',
+        `<div style="border: 1px solid #e74c3c; background: #f9e6e6; padding: 10px; border-radius: 6px;">
+           ⚠️ <strong>تنبيه:</strong> هذا المساعد الذكي هو نموذج تجريبي.<br>
+           لا تدخل أي معلومات شخصية أو حساسة.<br>
+           يُستخدم هذا النظام لأغراض دراسية وتجريبية فقط.
+         </div>`
+    );
 });
