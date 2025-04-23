@@ -51,11 +51,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.log("✅ Réponse OpenAI :", reply);
 
     return res.status(200).json({ message: reply });
-  } catch (error: any) {
-    console.error('❌ Erreur OpenAI :', error);
-    return res.status(500).json({
-      error: 'Erreur lors de la communication avec OpenAI.',
-      details: error?.message || 'Erreur inconnue'
-    });
+  } catch (error) {
+    console.error('❌ Erreur lors de la communication avec OpenAI :', error);
+
+    if (error instanceof Error) {
+      return res.status(500).json({ error: 'Erreur interne du serveur', details: error.message });
+    } else {
+      return res.status(500).json({ error: 'Erreur interne du serveur inconnue' });
+    }
   }
 }
