@@ -68,7 +68,7 @@
                 <div class="message bot">
                     مرحباً! أنا زميلك الرقمي، كيف يمكنني مساعدتك؟
                 </div>
-            </div>
+</div>
             <div class="chat-input">
                 <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
                 <button onclick="sendMessage()">إرسال</button>
@@ -99,9 +99,9 @@
         async function sendMessage() {
             const userInput = document.getElementById('userInput');
             const message = userInput.value.trim();
-            
+
             if (message === '') return;
-            
+
             // Afficher le message de l'utilisateur
             appendMessage('user', message);
             userInput.value = '';
@@ -109,18 +109,33 @@
             try {
                 // Afficher l'indicateur de chargement
                 appendMessage('bot', '... جاري التحميل');
-                
-                // Appel à l'API
+
+                // Détecter la langue de la question
+                const isArabic = /[\u0600-\u06FF]/.test(message);
+                const languageHint = isArabic ? "أجب بالعربية" : "Réponds en français";
+
+                // Appel à l'API avec un prompt system
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ message: message })
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `أنت "زميلك الرقمي"، مساعد ذكي متخصص في كشف التزييف العميق، وتحليل الصور والوثائق، ومكافحة المحتوى الاحتيالي. ${languageHint}`
+                            },
+                            {
+                                role: 'user',
+                                content: message
+                            }
+                        ]
+                    })
                 });
 
                 const data = await response.json();
-                
+
                 // Supprimer le message de chargement
                 const loadingMessage = document.querySelector('.message.bot:last-child');
                 if (loadingMessage) {
@@ -133,7 +148,7 @@
 
                 // Afficher la réponse du chatbot
                 appendMessage('bot', data.message);
-                
+
             } catch (error) {
                 console.error('Erreur:', error);
                 appendMessage('bot', 'عذراً، حدث خطأ في المعالجة. يرجى المحاولة مرة أخرى.');
@@ -151,4 +166,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
