@@ -17,7 +17,10 @@ function toggleChat() {
 async function sendMessage() {
     const userInput = document.getElementById('userInput');
     const message = userInput.value.trim();
-    if (message === '') return;
+    if (message === '' || (!/^[a-zA-Z\u0600-\u06FF\s]+$/.test(message))) {
+        appendMessage('bot', '⚠️ Veuillez entrer un message en français ou en arabe uniquement.');
+        return;
+    }
 
     appendMessage('user', message);
     userInput.value = '';
@@ -84,6 +87,15 @@ function startVoiceInput() {
 // Initialisation du chatbot sans mot de passe
 window.addEventListener('DOMContentLoaded', function () {
     const userInput = document.getElementById('userInput');
+    if (userInput) {
+        userInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+
     const chatContainer = document.getElementById('chatContainer');
 
     userInput.addEventListener('keydown', function (event) {
