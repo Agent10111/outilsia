@@ -33,10 +33,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
   }
 
+  const bilingualSystemPrompt = {
+    role: 'system',
+    content: `
+Vous êtes Zameelak al-Raqmi, un assistant numérique BILINGUE français ↔ arabe.
+Vous comprenez parfaitement les questions en français et en arabe.
+Vous répondez toujours en fournissant **d’abord** la réponse en français, puis **ensuite** la même réponse en arabe.
+    `.trim()
+  };
+
+  const openaiMessages = [
+    bilingualSystemPrompt,
+    ...messages.map((m: any) => ({ role: m.role, content: m.content }))
+  ];
+
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4',
-      messages,
+      messages: openaiMessages,
       temperature: 0.3,
       max_tokens: 800,
     });

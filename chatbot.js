@@ -17,14 +17,13 @@ function toggleChat() {
 async function sendMessage() {
     const userInput = document.getElementById('userInput');
     const message = userInput.value.trim();
-    if (message === '') {
+    if (!message) {
         appendMessage('bot', '⚠️ الرسالة فارغة. الرجاء إدخال نص.');
         return;
     }
 
     appendMessage('user', message);
     userInput.value = '';
-
     const loading = appendMessage('bot', '... جاري التحميل');
 
     try {
@@ -33,7 +32,6 @@ async function sendMessage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 messages: [
-                    { role: 'system', content: welcomeMessage },
                     { role: 'user', content: message }
                 ]
             })
@@ -123,4 +121,6 @@ window.addEventListener('DOMContentLoaded', function () {
     chatContainer.style.display = 'block';
     appendMessage('bot', welcomeMessage);
     appendMessage('bot', 'مرحباً! أنا زميلك الرقمي، كيف يمكنني مساعدتك؟');
+    appendMessage('bot', 'مرحباً! أنا زميلك الرقمي.');
+    appendMessage('bot', 'Bonjour ! Je suis Zameelak al-Raqmi.');
 });
