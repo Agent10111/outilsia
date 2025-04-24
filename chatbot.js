@@ -1,6 +1,6 @@
 // Zameelak al-Raqmi - Chatbot sécurisé avec PDF, Speech-to-Text et mot de passe
 
-const API_BASE = 'https://outilsia.vercel.app'; // Mise à jour de l'adresse du backend pour pointer vers l'URL déployée
+const API_BASE = 'https://outilsia-silk.vercel.app'; // Mise à jour de l'adresse du backend pour pointer vers l'URL déployée
 
 function toggleChat() {
     const chatContainer = document.getElementById('chatContainer');
