@@ -1,6 +1,8 @@
 // Zameelak al-Raqmi - Chatbot sécurisé avec PDF, Speech-to-Text et mot de passe
 
-const API_BASE = 'https://outilsia-silk.vercel.app'; // Mise à jour de l'adresse du backend pour pointer vers l'URL déployée
+const API_BASE = 'https://outilsia-silk.vercel.app';
+
+const welcomeMessage = 'مرحباً! أنا زميلك الرقمي، كيف يمكنني مساعدتك؟';
 
 function toggleChat() {
     const chatContainer = document.getElementById('chatContainer');
@@ -76,7 +78,7 @@ function startVoiceInput() {
     };
 }
 
-// Supprime la protection par mot de passe
+// Initialisation du chatbot sans mot de passe
 window.addEventListener('DOMContentLoaded', function () {
     const userInput = document.getElementById('userInput');
     const chatContainer = document.getElementById('chatContainer');
@@ -92,13 +94,5 @@ window.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btnVoice').addEventListener('click', startVoiceInput);
 
     chatContainer.style.display = 'block';
-    // Supprime l'appel avec welcomeMessage brut et garde uniquement l'appel avec HTML
-    appendMessage(
-        'bot',
-        `<div style="border: 1px solid #e74c3c; background: #f9e6e6; padding: 10px; border-radius: 6px;">
-           ⚠️ <strong>تنبيه:</strong> هذا المساعد الذكي هو نموذج تجريبي.<br>
-           لا تدخل أي معلومات شخصية أو حساسة.<br>
-           يُستخدم هذا النظام لأغراض دراسية وتجريبية فقط.
-         </div>`
-    );
+    appendMessage('bot', welcomeMessage);
 });
