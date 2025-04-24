@@ -84,6 +84,11 @@ li:hover {
     transform: translateX(-5px);
 }
 
+/* Ajout de styles pour rendre le texte blanc */
+ul li a {
+    color: white;
+}
+
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
@@ -301,4 +306,4 @@ canvas#networkCanvas {
         order: -1;
         margin: 20px 0;
     }
-} 
+}
