@@ -44,7 +44,7 @@ Vous répondez toujours en fournissant **d’abord** la réponse en français, p
 
   const openaiMessages = [
     bilingualSystemPrompt,
-    ...messages.map((m: any) => ({ role: m.role, content: m.content }))
+    ...messages.map((m: { role: string; content: string }) => ({ role: m.role, content: m.content }))
   ];
 
   try {
