@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const OPENAI_PROJECT_ID = process.env.OPENAI_PROJECT_ID;
@@ -33,22 +34,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
   }
 
-  const bilingualSystemPrompt = {
+  const bilingualSystemPrompt: ChatCompletionMessageParam = {
     role: 'system',
     content: `
 Vous êtes Zameelak al-Raqmi, un assistant numérique BILINGUE français ↔ arabe.
-Vous comprenez parfaitement les questions en français et en arabe.
-Vous répondez toujours en fournissant **d’abord** la réponse en français, puis **ensuite** la même réponse en arabe.
+Vous répondez toujours d’abord en français, puis en arabe.
     `.trim()
   };
 
-  const openaiMessages: ChatCompletionMessageParam[] = [
+  const openaiMessages = [
     bilingualSystemPrompt,
-    ...messages.map((m: { role: string; content: string }) => ({
-      role: m.role,
-      content: m.content,
-      name: m.role === 'system' ? 'system' : undefined // Ajout de la propriété 'name' si nécessaire
-    }))
+    ...messages.map(m => ({ role: m.role, content: m.content }))
   ];
 
   try {
