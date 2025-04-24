@@ -42,9 +42,13 @@ Vous répondez toujours en fournissant **d’abord** la réponse en français, p
     `.trim()
   };
 
-  const openaiMessages = [
+  const openaiMessages: ChatCompletionMessageParam[] = [
     bilingualSystemPrompt,
-    ...messages.map((m: { role: string; content: string }) => ({ role: m.role, content: m.content }))
+    ...messages.map((m: { role: string; content: string }) => ({
+      role: m.role,
+      content: m.content,
+      name: m.role === 'system' ? 'system' : undefined // Ajout de la propriété 'name' si nécessaire
+    }))
   ];
 
   try {
