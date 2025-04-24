@@ -17,8 +17,8 @@ function toggleChat() {
 async function sendMessage() {
     const userInput = document.getElementById('userInput');
     const message = userInput.value.trim();
-    if (message === '' || (!/^[a-zA-Z\u0600-\u06FF\s]+$/.test(message))) {
-        appendMessage('bot', '⚠️ Veuillez entrer un message en français ou en arabe uniquement.');
+    if (message === '') {
+        appendMessage('bot', '⚠️ الرسالة فارغة. الرجاء إدخال نص.');
         return;
     }
 
@@ -94,6 +94,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 sendMessage();
             }
         });
+    }
+
+    const sendButton = document.querySelector('button[onclick="sendMessage()"]');
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
     }
 
     const chatContainer = document.getElementById('chatContainer');
