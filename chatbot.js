@@ -26,6 +26,12 @@ async function sendMessage() {
     userInput.value = '';
     const loading = appendMessage('bot', '... جاري التحميل');
 
+    console.log('📤 Données envoyées à l\'API:', {
+        messages: [
+            { role: 'user', content: message }
+        ]
+    });
+
     try {
         const response = await fetch(`${API_BASE}/api/chat`, {
             method: 'POST',
@@ -37,7 +43,11 @@ async function sendMessage() {
             })
         });
 
+        console.log('📥 Réponse brute de l\'API:', response);
+
         const data = await response.json();
+        console.log('📥 Données JSON reçues de l\'API:', data);
+
         loading.remove();
 
         if (data.error) throw new Error(data.error);
@@ -46,7 +56,7 @@ async function sendMessage() {
     } catch (error) {
         console.error('❌ Erreur OpenAI :', error);
         loading.remove();
-        appendMessage('bot', '⚠️ عذراً، حدث خطأ في الاتصال. حاول مجدداً.');
+        appendMessage('bot', '⚠️ Une erreur est survenue. Veuillez réessayer.');
     }
 }
 
