@@ -102,4 +102,5 @@ window.addEventListener('DOMContentLoaded', function () {
 
     chatContainer.style.display = 'block';
     appendMessage('bot', welcomeMessage);
+    appendMessage('bot', 'مرحباً! أنا زميلك الرقمي، كيف يمكنني مساعدتك؟');
 });
