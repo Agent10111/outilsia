@@ -2,6 +2,9 @@
 
 const API_BASE = 'https://outilsia-silk.vercel.app';
 
+console.log(API_BASE);
+console.log("✅ API_BASE utilisé :", API_BASE);
+
 const welcomeMessage = 'مرحباً! أنا زميلك الرقمي، كيف يمكنني مساعدتك؟';
 
 function toggleChat() {

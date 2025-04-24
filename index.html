@@ -96,7 +96,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Charger les scripts après le DOM
-            const scripts = ['./network.js', './chatbot.js', './qr-generator.js', './chat.js'];
+            const version = new Date().getTime();
+            const scripts = ['./network.js', `./chatbot.js?v=${version}`, './qr-generator.js', './chat.js'];
             scripts.forEach(src => {
                 const script = document.createElement('script');
                 script.src = src;
