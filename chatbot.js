@@ -76,14 +76,8 @@ function startVoiceInput() {
     };
 }
 
-// Protection par mot de passe simple pour /chatbot
+// Supprime la protection par mot de passe
 window.addEventListener('DOMContentLoaded', function () {
-    const password = prompt("🔐 Entrez le mot de passe pour accéder au chatbot :");
-    if (password !== 'zamil2025') {
-        document.body.innerHTML = '<h2 style="color:red;text-align:center;margin-top:20%">🔒 Accès refusé. Mot de passe incorrect.</h2>';
-        return;
-    }
-
     const userInput = document.getElementById('userInput');
     const chatContainer = document.getElementById('chatContainer');
 
