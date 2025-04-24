@@ -90,8 +90,15 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('btnExportPDF').addEventListener('click', exportChatToPDF);
-    document.getElementById('btnVoice').addEventListener('click', startVoiceInput);
+    const btnExportPDF = document.getElementById('btnExportPDF');
+    if (btnExportPDF) {
+        btnExportPDF.addEventListener('click', exportChatToPDF);
+    }
+
+    const btnVoice = document.getElementById('btnVoice');
+    if (btnVoice) {
+        btnVoice.addEventListener('click', startVoiceInput);
+    }
 
     chatContainer.style.display = 'block';
     appendMessage('bot', welcomeMessage);
